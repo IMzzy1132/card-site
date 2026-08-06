@@ -49,10 +49,11 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
+            transition: background 0.3s ease;
         }
 
         .cart-btn:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.35);
         }
 
         .cart-count {
@@ -64,7 +65,6 @@
             margin-left: 4px;
         }
 
-        /* 容器 单个卡片居中 */
         .container {
             max-width: 1200px;
             margin: 60px auto 0;
@@ -80,12 +80,12 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
         }
 
         .product-img-wrap {
@@ -98,6 +98,10 @@
             width:100%;
             height:100%;
             object-fit:cover;
+            transition: transform 0.4s ease;
+        }
+        .product-card:hover .product-img{
+            transform: scale(1.05);
         }
 
         .product-info {
@@ -137,10 +141,15 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 15px;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .buy-btn:hover {
             background: #2563eb;
+            transform: scale(1.03);
+        }
+        .buy-btn:active{
+            transform: scale(0.98);
         }
 
         .stock {
@@ -149,24 +158,35 @@
             margin-top: 8px;
         }
 
-        /* 购物车弹窗 */
-        .cart-modal {
+        /* 弹窗通用动画 */
+        .modal-mask{
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0);
             z-index: 200;
             align-items: center;
             justify-content: center;
+            transition: background 0.35s ease;
+        }
+        .modal-mask.show{
+            display:flex;
+            background: rgba(0,0,0,0.55);
+        }
+        .modal-box{
+            transform: scale(0.92) translateY(12px);
+            opacity:0;
+            transition: all 0.35s cubic‑bezier(0.25,0.8,0.25,1);
+        }
+        .modal-mask.show .modal-box{
+            transform: scale(1) translateY(0);
+            opacity:1;
         }
 
-        .cart-modal.show {
-            display: flex;
-        }
-
+        /* 购物车弹窗 */
         .cart-box {
             background: white;
             width: 90%;
@@ -196,6 +216,10 @@
             font-size: 24px;
             cursor: pointer;
             color: #6b7280;
+            transition: color 0.2s ease;
+        }
+        .close-btn:hover{
+            color:#111;
         }
 
         .cart-list {
@@ -236,6 +260,10 @@
             background: white;
             border-radius: 4px;
             cursor: pointer;
+            transition:all 0.2s ease;
+        }
+        .num-btn:hover{
+            background:#f3f4f6;
         }
 
         .del-btn {
@@ -244,6 +272,10 @@
             border: none;
             cursor: pointer;
             margin-left: 8px;
+            transition:color 0.2s;
+        }
+        .del-btn:hover{
+            color:#ef4444;
         }
 
         .cart-footer {
@@ -268,10 +300,14 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 15px;
+            transition: background 0.3s ease,transform 0.2s ease;
         }
-
         .checkout-btn:hover {
             background: #059669;
+            transform:scale(1.02);
+        }
+        .checkout-btn:active{
+            transform:scale(0.98);
         }
 
         .empty-cart {
@@ -280,22 +316,7 @@
             padding: 40px 0;
         }
 
-        /* 结算成功弹窗 自定义图片+文件区域 */
-        .success-modal{
-            display:none;
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background:rgba(0,0,0,0.6);
-            z-index:300;
-            align-items:center;
-            justify-content:center;
-        }
-        .success-modal.show{
-            display:flex;
-        }
+        /* 付款弹窗 */
         .success-card{
             background:#fff;
             width:90%;
@@ -306,6 +327,7 @@
         .success-img-wrap{
             width:100%;
             height:220px;
+            overflow:hidden;
         }
         .success-img{
             width:100%;
@@ -327,6 +349,8 @@
             border-radius:8px;
             margin-bottom:16px;
             word-break:break-all;
+            font-size:14px;
+            line-height:1.6;
         }
         .close-success{
             width:100%;
@@ -337,6 +361,127 @@
             border-radius:8px;
             cursor:pointer;
             font-size:15px;
+            transition:background 0.3s ease;
+        }
+        .close-success:hover{
+            background:#2563eb;
+        }
+        .open‑card‑btn{
+            width:100%;
+            padding:10px;
+            background:#10b981;
+            color:#fff;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:15px;
+            margin-bottom:12px;
+            transition:background 0.3s ease;
+        }
+        .open‑card‑btn:hover{
+            background:#059669;
+        }
+
+        /* 卡密输入弹窗 */
+        .keymodal-card{
+            background:#ffffff;
+            width:90%;
+            max-width:380px;
+            border-radius:12px;
+            padding:24px;
+        }
+        .key-title{
+            font-size:17px;
+            font-weight:bold;
+            text-align:center;
+            margin-bottom:16px;
+        }
+        .key-input{
+            width:100%;
+            padding:12px 14px;
+            border:1px solid #d1d5db;
+            border-radius:8px;
+            font-size:15px;
+            margin-bottom:14px;
+        }
+        .key-input:focus{
+            outline:none;
+            border-color:#3b82f6;
+        }
+        .key-tip{
+            font-size:13px;
+            color:#ef4444;
+            min-height:20px;
+            margin-bottom:14px;
+            text-align:center;
+        }
+        .key-btn-group{
+            display:flex;
+            gap:10px;
+        }
+        .key-confirm{
+            flex:1;
+            padding:10px;
+            border:none;
+            border-radius:8px;
+            background:#3b82f6;
+            color:#fff;
+            cursor:pointer;
+        }
+        .key-cancel{
+            flex:1;
+            padding:10px;
+            border:1px solid #d1d5db;
+            border-radius:8px;
+            background:#fff;
+            cursor:pointer;
+        }
+
+        /* 成功解析卡密后展示文件弹窗 */
+        .file‑result‑card{
+            background:#fff;
+            width:90%;
+            max-width:400px;
+            border-radius:12px;
+            padding:24px;
+        }
+        .file‑result‑title{
+            text-align:center;
+            font-size:17px;
+            font-weight:bold;
+            margin-bottom:14px;
+        }
+        .file‑result‑content{
+            background:#f7f8fa;
+            padding:14px;
+            border-radius:8px;
+            font-size:14px;
+            line-height:1.6;
+            word-break:break-all;
+            margin-bottom:16px;
+        }
+        .download-real-btn{
+            width:100%;
+            padding:11px;
+            background:#10b981;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:15px;
+            cursor:pointer;
+            margin-bottom:10px;
+            transition:background 0.3s ease;
+        }
+        .download-real-btn:hover{
+            background:#059669;
+        }
+
+        /* 底部版权 */
+        .copyright{
+            text-align:center;
+            padding:24px 12px;
+            font-size:13px;
+            color:#888;
         }
 
         @media (max-width: 640px) {
@@ -362,7 +507,6 @@
 
 <div class="container">
     <div class="product-card">
-        <!-- 可以修改src更换商品图片 -->
         <div class="product-img-wrap">
             <img class="product-img" id="mainProductImg" src="https://picsum.photos/id/237/600/400" alt="商品图">
         </div>
@@ -379,8 +523,8 @@
 </div>
 
 <!-- 购物车弹窗 -->
-<div class="cart-modal" id="cartModal" onclick="if(event.target===this)toggleCart()">
-    <div class="cart-box">
+<div class="modal-mask" id="cartModal" onclick="if(event.target===this)toggleCart()">
+    <div class="modal-box cart-box">
         <div class="cart-header">
             <h3>我的购物车</h3>
             <button class="close-btn" onclick="toggleCart()">×</button>
@@ -393,31 +537,80 @@
     </div>
 </div>
 
-<!-- 结算成功弹窗【自定义图片+自定义文件文本】 -->
-<div class="success-modal" id="successModal" onclick="if(event.target===this)closeSuccess()">
-    <div class="success-card">
+<!-- 付款弹窗 -->
+<div class="modal-mask" id="payModal" onclick="if(event.target===this)closePayModal()">
+    <div class="modal-box success-card">
         <div class="success-img-wrap">
-            <!-- 修改src替换结算弹窗图片 -->
-            <img class="success-img" id="successPopupImg" src="https://picsum.photos/id/42/600/400" alt="结算图">
+            <img class="success-img" id="popupPayImg" src="https://picsum.photos/id/42/600/400" alt="付款">
         </div>
         <div class="success-body">
-            <div class="success-title">购买成功，获取资源</div>
-            <!-- 修改这里fileContent内容，自定义显示的文件/密钥文本 -->
-            <div class="file-box" id="fileContent">
-key‑abc‑123‑demo‑xyz<br>
-下载链接：demo‑file.test/file.zip
+            <div class="success-title">请付款</div>
+            <div class="file-box" id="popupFileText">
+请完成付款后获取资源<br>
+演示文件路径：./download/secret.zip
             </div>
-            <button class="close-success" onclick="closeSuccess()">关闭</button>
+            <button class="open‑card‑btn" onclick="openKeyInputModal()">输入卡密提取文件</button>
+            <button class="close-success" onclick="closePayModal()">关闭</button>
         </div>
     </div>
 </div>
 
+<!-- 卡密输入弹窗 -->
+<div class="modal-mask" id="keyInputModal" onclick="if(event.target===this)closeKeyInputModal()">
+    <div class="modal-box keymodal-card">
+        <div class="key-title">请输入提取卡密</div>
+        <input class="key-input" id="cardKeyInput" placeholder="在此输入卡密">
+        <div class="key-tip" id="keyTip"></div>
+        <div class="key-btn-group">
+            <button class="key-cancel" onclick="closeKeyInputModal()">取消</button>
+            <button class="key-confirm" onclick="verifyCardKey()">确认验证</button>
+        </div>
+    </div>
+</div>
+
+<!-- 卡密验证成功，展示文件弹窗【方案A：服务器真实文件下载】 -->
+<div class="modal-mask" id="fileResultModal" onclick="if(event.target===this)closeFileResultModal()">
+    <div class="modal-box file‑result‑card">
+        <div class="file‑result‑title">✅文件提取成功</div>
+        <div class="file‑result‑content" id="fileResultContent"></div>
+        <button class="download-real-btn" onclick="triggerServerDownload()">📥下载服务器文件</button>
+        <button class="close-success" onclick="closeFileResultModal()">关闭</button>
+    </div>
+</div>
+
+<!-- 版权信息 -->
+<div class="copyright">
+© 版权所有 归属毁约
+</div>
+
 <script>
+    // =====================【方案A 配置区】=====================
+    const validCardKey = "DEMO‑KEY‑0001";
+    // 👉这里填服务器上真实文件的相对URL，把文件上传到网站该路径
+    const serverDownloadUrl = "./download/secret.zip";
+    const outputFileContent = `
+文件名：secret.zip
+服务器路径：/download/secret.zip
+请点击下方按钮下载文件
+`;
+    // =========================================================
+
     const products = [
         { id: 1, name: "密钥文件资源", desc: "全套密钥文件，下载即用，纯前端演示项目", price: 5.00, stock: 999 }
     ];
 
     let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    // 触发服务器文件下载函数（方案A核心）
+    function triggerServerDownload(){
+        const a = document.createElement('a');
+        a.href = serverDownloadUrl;
+        a.target = "_blank";
+        a.setAttribute("download","secret.zip");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 
     function addToCart(id) {
         const product = products.find(p => p.id === id);
@@ -490,26 +683,50 @@ key‑abc‑123‑demo‑xyz<br>
         renderCart();
     }
 
-    // 结算：关闭购物车，弹出成功卡片弹窗
     function checkout() {
         if (cart.length === 0) {
             alert('购物车是空的！');
             return;
         }
-        // 关闭购物车
         document.getElementById('cartModal').classList.remove('show');
-        // 弹出结算成功弹窗
-        document.getElementById('successModal').classList.add('show');
-
-        // 清空购物车
+        document.getElementById('payModal').classList.add('show');
         cart = [];
         saveCart();
         updateCartCount();
         renderCart();
     }
 
-    function closeSuccess(){
-        document.getElementById('successModal').classList.remove('show');
+    function closePayModal(){
+        document.getElementById('payModal').classList.remove('show');
+    }
+
+    function openKeyInputModal(){
+        document.getElementById('cardKeyInput').value = "";
+        document.getElementById('keyTip').innerText = "";
+        document.getElementById('keyInputModal').classList.add('show');
+    }
+    function closeKeyInputModal(){
+        document.getElementById('keyInputModal').classList.remove('show');
+    }
+
+    function verifyCardKey(){
+        const inputVal = document.getElementById('cardKeyInput').value.trim();
+        const tipDom = document.getElementById('keyTip');
+        if(!inputVal){
+            tipDom.innerText = "请输入卡密！";
+            return;
+        }
+        if(inputVal === validCardKey){
+            closeKeyInputModal();
+            document.getElementById('fileResultContent').innerText = outputFileContent;
+            document.getElementById('fileResultModal').classList.add('show');
+        }else{
+            tipDom.innerText = "卡密错误，请核对！";
+        }
+    }
+
+    function closeFileResultModal(){
+        document.getElementById('fileResultModal').classList.remove('show');
     }
 
     updateCartCount();
